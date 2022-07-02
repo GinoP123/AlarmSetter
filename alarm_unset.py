@@ -15,18 +15,6 @@ def remove_line(file, line):
 			outfile.write(line)
 
 
-def write_reminder():
-	time = datetime.now().strftime("%I,%M,%p").split(',')
-	time = f"{int(time[0])}:{time[1]} {time[2]}"
-
-	message = '"' * 3
-	message += f"\n\tAlarm Finished!\n\n\tIts {time}!!!\n\n"
-	message += '"' * 3
-
-	with open(settings.alarm_reminder_file, 'w') as outfile:
-		outfile.write(message)
-
-
 next_alarm = lb.get_next_alarm()
 if next_alarm is None:
 	print("\n\tERROR: no alarms to unset\n")
@@ -34,10 +22,10 @@ if next_alarm is None:
 
 remove_line(settings.crontab_file, lb.crontab_line(*next_alarm))
 remove_line(settings.alarms_file, lb.alarms_line(*next_alarm))
-write_reminder()
+lb.write_reminder()
 
 min_alarm = lb.min_alarm(*lb.get_alarms())
-lb.write_next_alarm(*min_alarm)
+lb.write_next_alarm(min_alarm)
 
 sp.run(f"crontab {settings.crontab_file}".split(' '))
 sp.run("say Ring Ring, Ring Ring, Alarm Finished".split())

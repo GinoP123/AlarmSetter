@@ -8,12 +8,12 @@ if not next_alarm:
 	print("\n\tERROR: No Alarm Set\n")
 	exit(1)
 
-hours_rem, minutes_rem = time_remaining(*next_alarm)
+hours_rem, minutes_rem = lb.time_remaining(next_alarm)
 plural = lambda x: 's' if x != 1 else ''
 hours_remaining = f"{hours_rem} hour{plural(hours_rem)}"
 minutes_remaining = f"{minutes_rem} minute{plural(minutes_rem)}"
 
-if hours:
+if hours_rem:
 	remaining = f"\n\t{minutes_remaining}, {hours_remaining} remaining\n"
 else:
 	remaining = f"\n\t{minutes_remaining} remaining\n"

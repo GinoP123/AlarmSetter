@@ -36,7 +36,7 @@ def parse_time(time):
 	else:
 		if not time.isnumeric():
 			invalid_time()
-		hour, minute = time_after_delta(int(time))
+		hour, minute = lb.time_after_delta(int(time))
 
 	return hour, minute
 
@@ -56,9 +56,10 @@ if not unique(hour, minute):
 	print("\n\tERROR: Alarm Already Set for This Time\n")
 	exit(2)
 
-
-if (hour, minute) == lb.min_alarm((hour, minute), lb.get_next_alarm()):
-	lb.write_next_alarm(hour, minute)
+new_alarm = (hour, minute)
+next_alarm = lb.get_next_alarm()
+if not next_alarm or new_alarm == lb.min_alarm(new_alarm, next_alarm):
+	lb.write_next_alarm(new_alarm)
 
 with open(settings.crontab_file, 'a') as outfile:
 	outfile.write(lb.crontab_line(hour, minute))
