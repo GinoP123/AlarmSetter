@@ -17,7 +17,7 @@ def parse_time(time):
 
 		if not hour.isnumeric():
 			invalid_time()
-		hour = int(hour)
+		hour = int(hour) % 12
 
 		if minute.endswith('PM'):
 			hour += 12
@@ -48,15 +48,17 @@ def unique(hour, minute):
 	return True
 
 
-if len(sys.argv) != 2:
+if len(sys.argv) < 2:
 	invalid_time()
 
 hour, minute = parse_time(sys.argv[1])
+message = ' '.join(sys.argv[2:])
+
 if not unique(hour, minute):
 	print("\n\tERROR: Alarm Already Set for This Time\n")
 	exit(2)
 
-new_alarm = (hour, minute)
+new_alarm = (hour, minute, message)
 next_alarm = lb.get_next_alarm()
 if not next_alarm or new_alarm == lb.min_alarm(new_alarm, next_alarm):
 	lb.write_next_alarm(new_alarm)
@@ -65,6 +67,6 @@ with open(settings.crontab_file, 'a') as outfile:
 	outfile.write(lb.crontab_line(hour, minute))
 
 with open(settings.alarms_file, 'a') as outfile:
-	outfile.write(lb.alarms_line(hour, minute))
+	outfile.write(lb.alarms_line(hour, minute, message))
 
 sp.run(f"crontab {settings.crontab_file}".split(' '))

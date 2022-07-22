@@ -12,7 +12,7 @@ def time_after_delta(minutes):
 
 
 def time_remaining(time):
-	hour, minute = time
+	hour, minute, _ = time
 	dt = to_datetime(hour, minute)
 	now = to_datetime(*datetime.now().strftime("%H, %M").split(', '))
 
@@ -30,8 +30,9 @@ def get_alarms():
 	alarms = []
 	with open(settings.alarms_file) as infile:
 		for line in infile:
-			hour, minute = map(eval, line.strip().split(','))
-			alarms.append((hour, minute))
+			hour, minute, message = line.strip().split(',')
+			hour, minute = map(eval, [hour, minute])
+			alarms.append((hour, minute, message))
 	return alarms
 
 
@@ -40,14 +41,16 @@ def get_next_alarm():
 		next_alarm = infile.read()
 		if not next_alarm:
 			return
-		return tuple(map(eval, next_alarm.split(',')))
+		hour, minute, message = next_alarm.split(',')
+		hour, minute = map(eval, (hour, minute))
+		return hour, minute, message
 
 
 def write_next_alarm(data):
 	with open(settings.next_alarm_file, 'w') as outfile:
 		if data:
-			hour, minute = data
-			outfile.write(f"{hour},{minute}")
+			hour, minute, message = data
+			outfile.write(f"{hour},{minute},{message}")
 
 
 def min_alarm(*alarms):
@@ -56,20 +59,22 @@ def min_alarm(*alarms):
 	return None
 
 
-def alarms_line(hour, minute):
-	return f"{hour},{minute}\n"
+def alarms_line(hour, minute, message):
+	return f"{hour},{minute},{message}\n"
 
 
 def crontab_line(hour, minute):
 	return f"{minute} {hour} * * * {settings.alarm_unset_script}\n"
 
 
-def write_reminder():
+def write_reminder(m="Alarm Finished!"):
 	time = datetime.now().strftime("%I,%M,%p").split(',')
 	time = f"{int(time[0])}:{time[1]} {time[2]}"
 
-	message = '"' * 3
-	message += f"\n\tAlarm Finished!\n\n\tIts {time}!!!\n\n"
+	message = '_=' 
+	message += '"' * 3
+	message += f"\n\n\tIts {time}!!!\n\n\n\n"
+	message += f"\t\t{m}\n\n\n\n"
 	message += '"' * 3
 
 	with open(settings.alarm_reminder_file, 'w') as outfile:

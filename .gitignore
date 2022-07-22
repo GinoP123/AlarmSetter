@@ -1,0 +1,5 @@
+text_files/*
+__pycache__/*
+settings.py
+.DS_STORE
+pomodoro.sh

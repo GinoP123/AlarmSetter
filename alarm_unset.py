@@ -20,9 +20,9 @@ if next_alarm is None:
 	print("\n\tERROR: no alarms to unset\n")
 	exit(1)
 
-remove_line(settings.crontab_file, lb.crontab_line(*next_alarm))
+remove_line(settings.crontab_file, lb.crontab_line(*next_alarm[:-1]))
 remove_line(settings.alarms_file, lb.alarms_line(*next_alarm))
-lb.write_reminder()
+lb.write_reminder(next_alarm[-1])
 
 min_alarm = lb.min_alarm(*lb.get_alarms())
 lb.write_next_alarm(min_alarm)
