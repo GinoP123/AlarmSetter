@@ -67,7 +67,9 @@ def crontab_line(hour, minute):
 	return f"{minute} {hour} * * * {settings.alarm_unset_script}\n"
 
 
-def write_reminder(m="Alarm Finished!"):
+def write_reminder(m):
+	if not m:
+		m = "Alarm Finished!"
 	time = datetime.now().strftime("%I,%M,%p").split(',')
 	time = f"{int(time[0])}:{time[1]} {time[2]}"
 
