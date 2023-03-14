@@ -30,8 +30,9 @@ def get_alarms():
 	alarms = []
 	with open(settings.alarms_file) as infile:
 		for line in infile:
-			hour, minute, message = line.strip().split(',')
+			hour, minute, *message = line.strip().split(',')
 			hour, minute = map(eval, [hour, minute])
+			message = ','.join(message)
 			alarms.append((hour, minute, message))
 	return alarms
 
@@ -41,8 +42,9 @@ def get_next_alarm():
 		next_alarm = infile.read()
 		if not next_alarm:
 			return
-		hour, minute, message = next_alarm.split(',')
+		hour, minute, *message = next_alarm.split(',')
 		hour, minute = map(eval, (hour, minute))
+		message = ','.join(message)
 		return hour, minute, message
 
 

@@ -1,0 +1,5 @@
+#!/bin/zsh
+~/Scripts/AlarmSetter/main.sh set $*
+if [[ $? == 0 ]]; then
+	ac
+fi

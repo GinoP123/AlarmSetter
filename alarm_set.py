@@ -12,20 +12,20 @@ def invalid_time():
 
 
 def parse_time(time):
-	if ':' in time:
-		hour, minute = time.split(':')
+	if not time.isnumeric():
+		if ':' not in time:
+			time = f"{time[:-2]}:00{time[-2:]}"
 
+		hour, minute = time.split(':')
 		if not hour.isnumeric():
 			invalid_time()
 		hour = int(hour) % 12
 
-		if minute.endswith('PM'):
+		if minute.upper().endswith('PM'):
 			hour += 12
-			minute = minute.rstrip('PM')
-		elif minute.endswith('AM'):
-			minute = minute.rstrip('AM')
-		else:
+		elif not minute.upper().endswith('AM'):
 			invalid_time()
+		minute = minute[:2]
 
 		if not minute.isnumeric():
 			invalid_time()
@@ -34,8 +34,6 @@ def parse_time(time):
 		if not (0 < hour <= 12 or 0 <= minute < 60):
 			invalid_time()
 	else:
-		if not time.isnumeric():
-			invalid_time()
 		hour, minute = lb.time_after_delta(int(time))
 
 	return hour, minute
