@@ -1,2 +1,2 @@
-#!/bin/zsh
+#!/bin/bash
 ~/Scripts/AlarmSetter/main.sh check
