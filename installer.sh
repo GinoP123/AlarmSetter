@@ -1,5 +1,6 @@
 #!/bin/bash
 
+mkdir -p text_files
 touch text_files/next_alarm.txt
 touch text_files/alarms.csv
 touch text_files/alarm_reminder.py
