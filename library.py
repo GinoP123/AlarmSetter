@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 import settings
+import os
 
 
 def to_datetime(hour, minute):
@@ -66,7 +67,8 @@ def alarms_line(hour, minute, message):
 
 
 def crontab_line(hour, minute):
-	return f"{minute} {hour} * * * export DISPLAY=:1;  {settings.alarm_unset_script} 2> /dev/null\n"
+	display_line = '' if 'zsh' in os.environ['SHELL'].lower() else 'export DISPLAY=:1;'
+	return f"{minute} {hour} * * * {display_line} {settings.alarm_unset_script} 2> /dev/null\n"
 
 
 def write_reminder(m):

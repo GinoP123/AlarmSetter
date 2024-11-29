@@ -62,9 +62,11 @@ if not next_alarm or new_alarm == lb.min_alarm(new_alarm, next_alarm):
 	lb.write_next_alarm(new_alarm)
 
 with open(settings.crontab_file, 'a') as outfile:
+	print(lb.crontab_line(hour, minute))
 	outfile.write(lb.crontab_line(hour, minute))
 
 with open(settings.alarms_file, 'a') as outfile:
 	outfile.write(lb.alarms_line(hour, minute, message))
 
 sp.run(f"crontab {settings.crontab_file}", shell=True)
+print(settings.crontab_file)
