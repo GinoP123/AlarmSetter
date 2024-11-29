@@ -7,7 +7,7 @@ alarm_reminder_file = f"{os.environ['HOME']}/Scripts/AlarmSetter/text_files/alar
 alarm_unset_script = f"{os.environ['HOME']}/Scripts/AlarmSetter/main.sh unset"
 
 open_file_script = shutil.which("subl")
-open_file_script = "/usr/local/bin/sublime" if not os.path.exists(open_file_script) else open_file_script
+open_file_script = "/usr/local/bin/sublime" if not (open_file_script and os.path.exists(open_file_script)) else open_file_script
 open_file_script = shutil.which("vim") if not os.path.exists(open_file_script) else open_file_script
 
 crontab_file = f"{os.environ['HOME']}/Scripts/miscellaneous/text_files/crontab.txt"
