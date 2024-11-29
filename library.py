@@ -66,7 +66,7 @@ def alarms_line(hour, minute, message):
 
 
 def crontab_line(hour, minute):
-	return f"{minute} {hour} * * * {settings.alarm_unset_script}\n"
+	return f"{minute} {hour} * * * export DISPLAY=:1;  {settings.alarm_unset_script} 2> /home/ginoprasad/Scripts/AlarmSetter/text_files/error.txt\n"
 
 
 def write_reminder(m):

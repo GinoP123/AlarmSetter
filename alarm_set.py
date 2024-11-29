@@ -67,4 +67,4 @@ with open(settings.crontab_file, 'a') as outfile:
 with open(settings.alarms_file, 'a') as outfile:
 	outfile.write(lb.alarms_line(hour, minute, message))
 
-sp.run(f"crontab {settings.crontab_file}".split(' '))
+sp.run(f"crontab {settings.crontab_file}", shell=True)

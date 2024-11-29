@@ -27,7 +27,7 @@ lb.write_reminder(next_alarm[-1])
 min_alarm = lb.min_alarm(*lb.get_alarms())
 lb.write_next_alarm(min_alarm)
 
-sp.run(f"crontab {settings.crontab_file}".split(' '))
-sp.run("say Ring Ring, Ring Ring, Alarm Finished".split())
-sp.run(f"{settings.open_file_script} {settings.alarm_reminder_file}".split())
+sp.run(f"crontab '{settings.crontab_file}'", shell=True)
+# sp.run("/usr/bin/say Ring Ring, Ring Ring, Alarm Finished".split())
+sp.run(f"'{settings.open_file_script}' '{settings.alarm_reminder_file}'", shell=True)
 

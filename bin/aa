@@ -1,0 +1,13 @@
+#!/bin/bash
+
+output="$(/home/ginoprasad/Scripts/AlarmSetter/bin/ac | xargs)"
+error="ERROR: No Alarm Set"
+if [[ "$output" != "$error" ]]; then
+	echo -ne '\n\tERROR: Alarms already set\n\n'
+	exit 1
+fi
+
+/home/ginoprasad/Scripts/AlarmSetter/bin/a 5 > /dev/null
+/home/ginoprasad/Scripts/AlarmSetter/bin/a 35 > /dev/null
+/home/ginoprasad/Scripts/AlarmSetter/bin/a 40 > /dev/null
+/home/ginoprasad/Scripts/AlarmSetter/bin/a 70
