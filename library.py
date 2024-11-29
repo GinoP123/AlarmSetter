@@ -67,8 +67,8 @@ def alarms_line(hour, minute, message):
 
 
 def crontab_line(hour, minute):
-	display_line = '' if 'zsh' in os.environ['SHELL'].lower() else 'export DISPLAY=:1;'
-	return f"{minute} {hour} * * * {display_line} {settings.alarm_unset_script} 2> /dev/null\n"
+	display_line = '' if 'zsh' in os.environ['SHELL'].lower() else 'export DISPLAY=:1; '
+	return f"{minute} {hour} * * * {display_line}{settings.alarm_unset_script} 2> /Users/ginoprasad/Scripts/AlarmSetter/text_files/error.txt\n"
 
 
 def write_reminder(m):
