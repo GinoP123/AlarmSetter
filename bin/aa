@@ -12,3 +12,15 @@ fi
 ./a 35 > /dev/null
 ./a 40 > /dev/null
 ./a 70
+
+record_file="../text_files/pomodoro_sessions.txt"
+curr_date="$(date +%D)"
+count='0'
+if [[ $(cat "$record_file" | grep "$curr_date") != '' ]]; then
+	count=$(tail -n 1 $record_file)
+	sed '$d' "$record_file"
+else
+	echo "$curr_date" >> "$record_file"
+fi
+
+echo $((count + 2)) >> "$record_file"
