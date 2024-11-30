@@ -18,7 +18,9 @@ curr_date="$(date +%D)"
 count='0'
 if [[ $(cat "$record_file" | grep "$curr_date") != '' ]]; then
 	count=$(tail -n 1 $record_file)
-	sed '$d' "$record_file"
+	sed '$d' "$record_file" > "${record_file}_tmp"
+	cat "${record_file}_tmp" > "$record_file"
+	rm "${record_file}_tmp"
 else
 	echo "$curr_date" >> "$record_file"
 fi
