@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 cd $(dirname "$0")
 tail -n 2 ../text_files/pomodoro_sessions.txt
