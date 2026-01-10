@@ -8,10 +8,9 @@ if [[ "$output" != "$error" ]]; then
 	exit 1
 fi
 
-./a 5 > /dev/null
+./a 30 > /dev/null
 ./a 35 > /dev/null
-./a 40 > /dev/null
-./a 70
+./a 65
 
 record_file="../text_files/pomodoro_sessions.txt"
 curr_date="$(date +%D)"

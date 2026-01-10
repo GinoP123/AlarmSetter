@@ -85,4 +85,3 @@ def write_reminder(m):
 
 	with open(settings.alarm_reminder_file, 'w') as outfile:
 		outfile.write(message)
-
