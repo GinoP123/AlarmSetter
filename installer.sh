@@ -5,6 +5,7 @@ touch text_files/next_alarm.txt
 touch text_files/alarms.csv
 touch text_files/alarm_reminder.py
 touch text_files/pomodoro_sessions.txt
+echo $DISPLAY > text_files/DISPLAY.txt
 
 if [[ $SHELL == *zsh ]]; then
 	if [[ "$(cat ~/.zprofile | grep AlarmSetter)" == "" ]]; then

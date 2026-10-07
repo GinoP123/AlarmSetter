@@ -67,8 +67,10 @@ def alarms_line(hour, minute, message):
 
 
 def crontab_line(hour, minute):
-	display_line =  'export DISPLAY=:1; ' if os.path.exists('/etc/os-release') else ''
-	return f"{minute} {hour} * * * {display_line}{settings.alarm_unset_script} 2> /dev/null\n"
+	with open(settings.display_file) as infile:
+		display_number = infile.read().strip()
+	display_line =  f'export DISPLAY={display_number}; ' if os.path.exists('/etc/os-release') else ''
+	return f"{minute} {hour} * * * date >> {settings.alarm_log}; {display_line}{settings.alarm_unset_script} >> {settings.alarm_log} 2>&1\n"
 
 
 def write_reminder(m):
