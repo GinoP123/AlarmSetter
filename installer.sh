@@ -1,6 +1,7 @@
 #!/bin/bash
 
 mkdir -p text_files
+mkdir -p cron_log
 touch text_files/next_alarm.txt
 touch text_files/alarms.csv
 touch text_files/alarm_reminder.py
